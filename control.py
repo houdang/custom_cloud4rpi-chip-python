@@ -3,7 +3,6 @@
 from time import sleep
 import sys
 import random
-import cloud4rpi
 import chip
 import ds18b20
 
@@ -98,41 +97,41 @@ def main():
         'Client Version:': cloud4rpi.__version__
     }
 
-    device = cloud4rpi.connect(DEVICE_TOKEN)
-    device.declare(variables)
-    device.declare_diag(diagnostics)
+    #device = cloud4rpi.connect(DEVICE_TOKEN)
+    # device.declare(variables)
+    # device.declare_diag(diagnostics)
 
-    device.publish_config()
+    # device.publish_config()
 
     # adds a 1 second delay to ensure device variables are created
-    sleep(1)
+    # sleep(1)
 
-    try:
-        diag_timer = 0
-        data_timer = 0
-        while True:
-            if data_timer <= 0:
-                device.publish_data()
-                data_timer = DATA_SENDING_INTERVAL
+    # try:
+    #    diag_timer = 0
+    #    data_timer = 0
+    #    while True:
+    #        if data_timer <= 0:
+    #            device.publish_data()
+    #            data_timer = DATA_SENDING_INTERVAL#
 
-            if diag_timer <= 0:
-                device.publish_diag()
-                diag_timer = DIAG_SENDING_INTERVAL
+    #        if diag_timer <= 0:
+    #            device.publish_diag()
+    #            diag_timer = DIAG_SENDING_INTERVAL#
 
-            diag_timer -= POLL_INTERVAL
-            data_timer -= POLL_INTERVAL
-            sleep(POLL_INTERVAL)
+    #        diag_timer -= POLL_INTERVAL
+    #        data_timer -= POLL_INTERVAL
+    #        sleep(POLL_INTERVAL)
 
-    except KeyboardInterrupt:
-        cloud4rpi.log.info('Keyboard interrupt received. Stopping...')
+    # except KeyboardInterrupt:
+    #    cloud4rpi.log.info('Keyboard interrupt received. Stopping...')
 
-    except Exception as e:
-        error = cloud4rpi.get_error_message(e)
-        cloud4rpi.log.error("ERROR! %s %s", error, sys.exc_info()[0])
-        sys.exit(1)
+    # except Exception as e:
+    #    error = cloud4rpi.get_error_message(e)
+    #    cloud4rpi.log.error("ERROR! %s %s", error, sys.exc_info()[0])
+    #    sys.exit(1)
 
-    finally:
-        sys.exit(0)
+    # finally:
+    #    sys.exit(0)
 
 
 if __name__ == '__main__':
